@@ -2,7 +2,7 @@
  
 	// juicy juicy state
 	var currentpage = 0;
-	var pagenames = new Array();
+	var pagecount = 0;
 	
     //Attach this new method to jQuery
     $.fn.paginate = function(options){
@@ -10,8 +10,7 @@
 			
             var defaults = {
                 startpage: 0,
-				navPosition: 'top',
-				paginationClass: '.rsjp-pagination'
+				navAtTop: true,
             }
                  
             var options =  $.extend(defaults, options);
@@ -19,24 +18,24 @@
 			return $(this).each(function() {
            
 				var o = options;
+				var obj = $(this);
 				var pageid,entry,link,nav,prev,next;
 				
 				currentpage = o.startpage;
-				nav = $(document.createElement('div')).addClass('rsjp-nav').append(document.createElement('ul'));
+				nav = $(document.createElement('nav')).addClass('rsjp-nav').append(document.createElement('ul'));
 		
 
 				//for each section tag inside of the rsjp-pagination div...
-				$(o.paginationClass).children('section').each(function(index){
+				obj.children('section').each(function(index){
 					//get the identifier for each page
-					pageid = $(this).attr('id');
+					pageid = $(this).attr('title');
 					
 					//if the identifier is not present, assign it a numeric identifier
 					if(pageid == undefined || pageid == ""){
-						$(this).attr('id', index+1);
+						$(this).attr('title', index+1);
 						pageid = ""+(index+1);
 					}
-					
-					pagenames.push(pageid);
+					$(this).attr('id',index);
 					
 					//create the entry for the nagivation menu
 					entry = $(document.createElement('li'));
@@ -45,12 +44,13 @@
 					}else{
 						entry.addClass('active')
 					}
-					link = $(document.createElement('a')).attr('title',pageid).attr('href','#').html(pageid)
+					link = $(document.createElement('a')).attr('title',index).attr('href','#').html(pageid)
 					//must be wrapped in an anonymous function so that the arguments get passed properly
-					link.click(function(){currentpage = gotoPage(pagenames.indexOf($(this).attr('title')))});
+					link.click(function(){currentpage = gotoPage($(this).attr('title'))});
 					
 					entry.append(link);
 					nav.children('ul').append(entry);
+					pagecount++;
 				});
 		
 				//build previous and next buttons
@@ -73,7 +73,10 @@
 				
 				//add the next and previous buttons to the navigation div, and add it to the DOM
 				nav.children('ul').prepend(prev).append(next);
-				$(o.paginationClass).prepend(nav)
+				if(o.navAtTop)
+					obj.prepend(nav);
+				else
+					obj.append(nav);
 
 			});
     }
@@ -82,16 +85,16 @@
 		$('.disabled').removeClass('disabled');
 		$('.active').removeClass('active');
 		
-		$("#"+pagenames[currentpage]).css('display', 'none');
-		$("#"+pagenames[pageindex]).css('display', 'block');
+		$("#"+currentpage).css('display', 'none');
+		$("#"+pageindex).css('display', 'block');
 		
 		currentpage = pageindex;
-		$('a[title='+pagenames[pageindex]+']').parent().addClass('active');
+		$('a[title='+pageindex+']').parent().addClass('active');
 		
 		//bounds checking, to ensure that next and previous buttons are properly disabled
 		if(pageindex <= 0){
 			$(".prev").addClass('disabled');
-		}else if (pageindex == pagenames.length-1){
+		}else if (pageindex >= pagecount-1){
 			$(".next").addClass('disabled');
 		}
 	}

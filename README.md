@@ -10,7 +10,7 @@ there are currently two files included:
 
 1. jquery.rsjp.js -- the jquery library that makes the magic happen
 2. rsjp.css -- css file defining styles for the navigation toolbar
-
+3. example.html -- a simple example file that shows how the plugin works
 ## How do I use it?
 simply include the jquery.rsjp.js file into your html document, and then call the following:
 
@@ -20,6 +20,7 @@ simply include the jquery.rsjp.js file into your html document, and then call th
 
 where &lt;selector&gt; is the div containing the element where the elements you want to paginate are located
 
+to give custom names to pages (other than just the page number), specify a tilte using the title attribute in the section tag
 ## Configuration
 
 the library includes the following configuration parameters:
