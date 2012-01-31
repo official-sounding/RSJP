@@ -23,6 +23,7 @@ where <selector> is the div containing the element where the elements you want t
 ## Configuration
 
 the library includes the following configuration parameters:
+
 * startpage -- the index of the starting page for the pagination. default is 0 (e.g. the first page)
 * navAtTop -- boolean, specifies if the navigation menu should be at the top or the bottom
 
