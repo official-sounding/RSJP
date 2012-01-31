@@ -1,7 +1,7 @@
 # Really Simple JQuery Pagination (RSJP)
 
 ## What is it?
-This is a jQuery plugin that makes it easy to paginate a single html document.  It automatically creates a pagination menu, splitting up a number of <section> tags inside of a div to create individual pages.
+This is a jQuery plugin that makes it easy to paginate a single html document.  It automatically creates a pagination menu, splitting up a number of &lt;section&gt; tags inside of a div to create individual pages.
 
 The package uses the pagination menu from the Bootstrap from Twitter project. 
 
@@ -18,7 +18,7 @@ simply include the jquery.rsjp.js file into your html document, and then call th
 		$(<selector>).paginate();
 	});
 
-where <selector> is the div containing the element where the elements you want to paginate are located
+where &lt;selector&gt; is the div containing the element where the elements you want to paginate are located
 
 ## Configuration
 
