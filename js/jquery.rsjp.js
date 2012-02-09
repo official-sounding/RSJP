@@ -1,7 +1,6 @@
 (function($){
  
 	// juicy juicy state
-	var currentpage = 0;
 	var pagecount = 0;
 	
     //Attach this new method to jQuery
@@ -21,9 +20,9 @@
 				var obj = $(this);
 				var pageid,entry,link,nav,prev,next;
 				
-				currentpage = o.startpage;
+				var currentpage = o.startpage;
 				nav = $(document.createElement('nav')).addClass('rsjp-nav').append(document.createElement('ul'));
-		
+				obj.append($(document.createElement('div')).attr('id','currentpage').html(currentpage).css('display','none'));
 
 				//for each section tag inside of the rsjp-pagination div...
 				obj.children('section').each(function(index){
@@ -46,7 +45,7 @@
 					}
 					link = $(document.createElement('a')).attr('title',index).attr('href','#').html(pageid)
 					//must be wrapped in an anonymous function so that the arguments get passed properly
-					link.click(function(){currentpage = gotoPage($(this).attr('title'))});
+					link.click(function(){gotoPage($(this).attr('title'))});
 					
 					entry.append(link);
 					nav.children('ul').append(entry);
@@ -82,13 +81,14 @@
     }
 	
 	function gotoPage(pageindex){
+		var currentpage = $('#currentpage').html();
 		$('.disabled').removeClass('disabled');
 		$('.active').removeClass('active');
 		
 		$("#"+currentpage).css('display', 'none');
 		$("#"+pageindex).css('display', 'block');
 		
-		currentpage = pageindex;
+		$('#currentpage').html(pageindex);
 		$('a[title='+pageindex+']').parent().addClass('active');
 		
 		//bounds checking, to ensure that next and previous buttons are properly disabled
