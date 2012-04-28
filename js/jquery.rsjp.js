@@ -60,11 +60,13 @@
 				next.append($(document.createElement('a')).attr('title','next').attr('href','#').html("Next &rarr;"));
 				
 				prev.click(function(){
+					var currentpage = Number($('#currentpage').html());
 					if(!$(this).hasClass('disabled')){
 						gotoPage(currentpage-1);
 					}
 				});
 				next.click(function(){
+					var currentpage = Number($('#currentpage').html());
 					if(!$(this).hasClass('disabled')){
 						gotoPage(currentpage+1);
 					}
@@ -81,7 +83,7 @@
     }
 	
 	function gotoPage(pageindex){
-		var currentpage = $('#currentpage').html();
+		var currentpage = Number($('#currentpage').html());
 		$('.disabled').removeClass('disabled');
 		$('.active').removeClass('active');
 		
