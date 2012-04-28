@@ -15,7 +15,7 @@ there are currently two files included:
 simply include the jquery.rsjp.js file into your html document, and then call the following:
 
 	$(document).ready(function(){
-		$(<selector>).paginate();
+		$(&lt;selector&gt;).paginate();
 	});
 
 where &lt;selector&gt; is the div containing the element where the elements you want to paginate are located
